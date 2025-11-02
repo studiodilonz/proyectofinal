@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiservicios Eléctricos - Refrigeración</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1><i class="fas fa-bolt"></i> Multiservicios Eléctricos</h1>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="acerca.html">Acerca de</a></li>
+                    <li><a href="servicios.html">Servicios</a></li>
+                    <li><a href="refrigeracion.html">Refrigeración</a></li>
+                    <li><a href="contactos.html">Contactos</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="services fade-in">
+        <div class="container">
+            <h2>Servicios de Refrigeración</h2>
+            <p class="section-intro">Especialistas en mantenimiento, reparación e instalación de sistemas de refrigeración para hogares, comercios e industrias.</p>
+            <div class="services-grid">
+                <div class="service-card fade-in" data-service="aires">
+                    <i class="fas fa-wind"></i>
+                    <h4>Mantenimiento de Aires Acondicionados</h4>
+                    <p>Limpieza profunda, cambio de filtros, verificación de refrigerante y calibración de termostatos para un funcionamiento óptimo.</p>
+                    <span class="click-hint">Haz clic para más detalles</span>
+                </div>
+                <div class="service-card fade-in" data-service="neveras">
+                    <i class="fas fa-snowflake"></i>
+                    <h4>Reparación de Neveras y Congeladores</h4>
+                    <p>Diagnóstico y reparación de compresores, evaporadores, termostatos y sistemas de descongelamiento.</p>
+                    <span class="click-hint">Haz clic para más detalles</span>
+                </div>
+                <div class="service-card fade-in" data-service="industrial">
+                    <i class="fas fa-cogs"></i>
+                    <h4>Sistemas de Refrigeración Industrial</h4>
+                    <p>Instalación y mantenimiento de cámaras frigoríficas, vitrinas refrigeradas y sistemas de climatización industrial.</p>
+                    <span class="click-hint">Haz clic para más detalles</span>
+                </div>
+                <div class="service-card fade-in" data-service="equipos">
+                    <i class="fas fa-tools"></i>
+                    <h4>Reparación de Equipos de Refrigeración</h4>
+                    <p>Servicio técnico especializado para dispensadores de agua, máquinas de hielo y equipos comerciales de refrigeración.</p>
+                    <span class="click-hint">Haz clic para más detalles</span>
+                </div>
+                <div class="service-card fade-in" data-service="temperatura">
+                    <i class="fas fa-thermometer-half"></i>
+                    <h4>Control de Temperatura y Monitoreo</h4>
+                    <p>Instalación de sistemas de monitoreo continuo para mantener temperaturas óptimas en almacenes y cámaras.</p>
+                    <span class="click-hint">Haz clic para más detalles</span>
+                </div>
+                <div class="service-card fade-in" data-service="refrigerante">
+                    <i class="fas fa-recycle"></i>
+                    <h4>Recarga y Mantenimiento de Refrigerante</h4>
+                    <p>Recarga ecológica de refrigerantes, detección de fugas y mantenimiento preventivo para prolongar la vida útil de los equipos.</p>
+                    <span class="click-hint">Haz clic para más detalles</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="service-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modal-image" src="" alt="Servicio">
+                </div>
+                <div class="modal-text">
+                    <h3 id="modal-title"></h3>
+                    <p id="modal-description"></p>
+                    <div class="modal-details">
+                        <h4>¿Qué incluye este servicio?</h4>
+                        <ul id="modal-features"></ul>
+                    </div>
+                    <a href="contactos.html" class="btn modal-btn">Solicitar Servicio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="contact fade-in">
+        <div class="container">
+            <h2>¿Necesitas Servicio de Refrigeración?</h2>
+            <p>Contactanos para una evaluación gratuita y presupuesto sin compromiso.</p>
+            <a href="contactos.html" class="btn">Solicitar Servicio</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="acerca.html">Acerca de</a></li>
+                        <li><a href="servicios.html">Servicios</a></li>
+                        <li><a href="refrigeracion.html">Refrigeración</a></li>
+                        <li><a href="contactos.html">Contactos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Servicios</h3>
+                    <ul>
+                        <li>Electricidad</li>
+                        <li>Plomería</li>
+                        <li>Refrigeración</li>
+                        <li>Emergencias 24/7</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contáctanos</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +1 (809) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@multiservicios.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Santo Domingo, RD</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Multiservicios Eléctricos. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
