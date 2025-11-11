@@ -133,6 +133,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+
+
 // Add loading animation to page
 window.addEventListener('load', () => {
     document.body.style.opacity = '1';
@@ -161,12 +163,50 @@ document.querySelectorAll('.service-card').forEach(card => {
 // Add click tracking for social links
 document.querySelectorAll('.social-link').forEach(link => {
     link.addEventListener('click', function(e) {
-        // For WhatsApp link, don't prevent default
-        if (!this.href.includes('wa.me')) {
+        // For WhatsApp, Instagram, and TikTok links, don't prevent default
+        if (!this.href.includes('wa.me') && !this.href.includes('instagram.com') && !this.href.includes('tiktok.com')) {
             e.preventDefault();
             showNotification('Red social próximamente disponible.', 'error');
         }
     });
+});
+
+// Service tabs functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const serviceCards = document.querySelectorAll('.service-card');
+
+    if (tabButtons.length > 0) {
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                this.classList.add('active');
+
+                const category = this.getAttribute('data-category');
+
+                // Show/hide cards based on category
+                serviceCards.forEach(card => {
+                    if (category === 'todos' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'block';
+                        // Show images only when clicking on tabs
+                        const image = card.querySelector('.service-image');
+                        if (image) {
+                            image.style.display = 'block';
+                        }
+                    } else {
+                        card.style.display = 'none';
+                        // Hide images for non-active categories
+                        const image = card.querySelector('.service-image');
+                        if (image) {
+                            image.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+    }
 });
 
 // Service card click handlers for modal
@@ -181,7 +221,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Refrigeration services
             aires: {
                 title: 'Mantenimiento de Aires Acondicionados',
-                image: 'imagenes/IMAGEN01.jpg',
+                image: 'imagenes/Mantenimiento de Aires Acondicionados09.jpg',
                 description: 'Servicio completo de mantenimiento preventivo y correctivo para sistemas de aire acondicionado. Garantizamos el óptimo funcionamiento de su equipo durante todo el año.',
                 features: [
                     'Limpieza profunda de filtros y serpentines',
@@ -194,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             neveras: {
                 title: 'Reparación de Neveras y Congeladores',
-                image: 'imagenes/IMAGEN02.jpg',
+                image: 'imagenes/nevera09.jpg',
                 description: 'Diagnóstico profesional y reparación especializada de neveras, congeladores y equipos de refrigeración comercial. Solucionamos cualquier problema técnico.',
                 features: [
                     'Diagnóstico electrónico avanzado',
@@ -207,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             industrial: {
                 title: 'Sistemas de Refrigeración Industrial',
-                image: 'imagenes/IMAGEN03.jpg',
+                image: 'imagenes/Sistemas de Refrigeración Industrial09.jpg',
                 description: 'Instalación, mantenimiento y reparación de sistemas de refrigeración industrial para almacenes, fábricas y comercios. Tecnología de vanguardia para máxima eficiencia.',
                 features: [
                     'Instalación de cámaras frigoríficas',
@@ -220,7 +260,7 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             equipos: {
                 title: 'Reparación de Equipos de Refrigeración',
-                image: 'imagenes/IMAGEN04.jpg',
+                image: 'imagenes/Reparación de Equipos de Refrigeración09.jpg',
                 description: 'Servicio técnico especializado para dispensadores de agua, máquinas de hielo y equipos comerciales de refrigeración. Reparaciones rápidas y garantizadas.',
                 features: [
                     'Reparación de dispensadores de agua',
@@ -233,7 +273,7 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             temperatura: {
                 title: 'Control de Temperatura y Monitoreo',
-                image: 'imagenes/IMAGEN05.jpg',
+                image: 'imagenes/Control de Temperatura y Monitoreo09.jpg',
                 description: 'Instalación de sistemas avanzados de monitoreo continuo para mantener temperaturas óptimas en almacenes, cámaras y áreas refrigeradas.',
                 features: [
                     'Instalación de sensores de temperatura',
@@ -246,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             refrigerante: {
                 title: 'Recarga y Mantenimiento de Refrigerante',
-                image: 'imagenes/IMAGEN06.jpg',
+                image: 'imagenes/Recarga y Mantenimiento de Refrigerante09.jpg',
                 description: 'Recarga ecológica de refrigerantes con productos certificados. Detección de fugas y mantenimiento preventivo para prolongar la vida útil de sus equipos.',
                 features: [
                     'Recarga con refrigerantes ecológicos R-134a, R-410A',
@@ -260,7 +300,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Electricity services
             electricidad_residencial: {
                 title: 'Instalaciones Eléctricas Residenciales',
-                image: 'imagenes/IMAGEN07.jpg',
+                image: 'imagenes/Instalaciones Eléctricas Residenciales09.jpg',
                 description: 'Instalación completa de sistemas eléctricos en viviendas, incluyendo cableado, tomas, interruptores y sistemas de iluminación. Cumplimos con todas las normativas de seguridad.',
                 features: [
                     'Instalación de cableado estructurado',
@@ -273,7 +313,7 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             electricidad_industrial: {
                 title: 'Instalaciones Eléctricas Industriales',
-                image: 'imagenes/IMAGEN08.jpg',
+                image: 'imagenes/Instalaciones Eléctricas industriales09.jpg',
                 description: 'Soluciones eléctricas para empresas, fábricas y comercios con sistemas de alta capacidad y seguridad industrial. Diseñamos sistemas eficientes y seguros.',
                 features: [
                     'Instalación de transformadores y subestaciones',
@@ -286,7 +326,7 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             reparacion_electrica: {
                 title: 'Reparación y Mantenimiento Eléctrico',
-                image: 'imagenes/IMAGEN09.jpg',
+                image: 'imagenes/Reparación y Mantenimiento Eléctrico09.jpg',
                 description: 'Diagnóstico y reparación de fallos eléctricos, mantenimiento preventivo y actualización de instalaciones existentes. Servicio rápido y profesional.',
                 features: [
                     'Diagnóstico de fallos eléctricos',
@@ -300,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Plumbing services
             plomeria_general: {
                 title: 'Servicios de Plomería General',
-                image: 'imagenes/IMAGEN10.jpg',
+                image: 'imagenes/Servicios de Plomería General09.jpg',
                 description: 'Instalación y reparación de tuberías, grifería, sanitarios y sistemas de agua potable y desagüe. Trabajamos con materiales de alta calidad.',
                 features: [
                     'Instalación de tuberías de agua y desagüe',
@@ -313,7 +353,7 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             plomeria_emergencias: {
                 title: 'Plomería de Emergencias',
-                image: 'imagenes/IMAGEN11.jpg',
+                image: 'imagenes/Plomería de Emergencias09.jpg',
                 description: 'Servicio 24/7 para emergencias de plomería: fugas, inundaciones, obstrucciones y reparaciones urgentes. Respuesta inmediata garantizada.',
                 features: [
                     'Servicio de emergencias 24 horas',

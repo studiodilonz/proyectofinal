@@ -12,20 +12,21 @@
     <header>
         <div class="container">
             <div class="logo">
-                <h1><i class="fas fa-bolt"></i> Multiservicios Eléctricos</h1>
+                <a href="index.html"><h1><i class="fas fa-bolt"></i> Multiservicios Eléctricos</h1></a>
             </div>
             <nav>
                 <ul class="nav-menu">
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="acerca.html">Acerca de</a></li>
                     <li><a href="servicios.html">Servicios</a></li>
-                    <li><a href="refrigeracion.html">Refrigeración</a></li>
                     <li><a href="contactos.html">Contactos</a></li>
                 </ul>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <div class="nav-controls">
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                 </div>
             </nav>
         </div>
@@ -34,53 +35,91 @@
     <section class="services fade-in">
         <div class="container">
             <h2>Nuestros Servicios</h2>
+            <div class="service-tabs">
+                <button class="tab-btn active" data-category="todos">Todos</button>
+                <button class="tab-btn" data-category="electricidad">Electricidad</button>
+                <button class="tab-btn" data-category="plomeria">Plomería</button>
+                <button class="tab-btn" data-category="refrigeracion">Refrigeración</button>
+            </div>
             <div class="services-grid">
-                <div class="service-card fade-in" data-service="electricidad_residencial">
+                <!-- Electricidad -->
+                <div class="service-card fade-in" data-service="electricidad_residencial" data-category="electricidad">
+                    <img src="imagenes/Instalaciones Eléctricas Residenciales.jpg" alt="Instalaciones Eléctricas Residenciales" class="service-image">
                     <i class="fas fa-home"></i>
                     <h4>Instalaciones Eléctricas Residenciales</h4>
                     <p>Instalación completa de sistemas eléctricos en viviendas, incluyendo cableado, tomas, interruptores y sistemas de iluminación.</p>
                     <span class="click-hint">Haz clic para más detalles</span>
                 </div>
-                <div class="service-card fade-in" data-service="electricidad_industrial">
+                <div class="service-card fade-in" data-service="electricidad_industrial" data-category="electricidad">
+                    <img src="imagenes/Instalaciones Eléctricas industriales.jpg" alt="Instalaciones Eléctricas Industriales" class="service-image">
                     <i class="fas fa-industry"></i>
                     <h4>Instalaciones Eléctricas Industriales</h4>
                     <p>Soluciones eléctricas para empresas, fábricas y comercios con sistemas de alta capacidad y seguridad industrial.</p>
                     <span class="click-hint">Haz clic para más detalles</span>
                 </div>
-                <div class="service-card fade-in" data-service="reparacion_electrica">
+                <div class="service-card fade-in" data-service="reparacion_electrica" data-category="electricidad">
+                    <img src="imagenes/Reparación y Mantenimiento Eléctrico.jpg" alt="Reparación y Mantenimiento Eléctrico" class="service-image">
                     <i class="fas fa-tools"></i>
                     <h4>Reparación y Mantenimiento Eléctrico</h4>
                     <p>Diagnóstico y reparación de fallos eléctricos, mantenimiento preventivo y actualización de instalaciones existentes.</p>
                     <span class="click-hint">Haz clic para más detalles</span>
                 </div>
-                <div class="service-card fade-in" data-service="plomeria_general">
+                <!-- Plomería -->
+                <div class="service-card fade-in" data-service="plomeria_general" data-category="plomeria">
+                    <img src="imagenes/Servicios de Plomería General.jpg" alt="Servicios de Plomería General" class="service-image">
                     <i class="fas fa-faucet"></i>
                     <h4>Servicios de Plomería General</h4>
                     <p>Instalación y reparación de tuberías, grifería, sanitarios y sistemas de agua potable y desagüe.</p>
                     <span class="click-hint">Haz clic para más detalles</span>
                 </div>
-                <div class="service-card fade-in" data-service="plomeria_emergencias">
+                <div class="service-card fade-in" data-service="plomeria_emergencias" data-category="plomeria">
+                    <img src="imagenes/Plomería de Emergencias.jpg" alt="Plomería de Emergencias" class="service-image">
                     <i class="fas fa-exclamation-triangle"></i>
                     <h4>Plomería de Emergencias</h4>
                     <p>Servicio 24/7 para emergencias de plomería: fugas, inundaciones, obstrucciones y reparaciones urgentes.</p>
                     <span class="click-hint">Haz clic para más detalles</span>
                 </div>
-                <div class="service-card fade-in" data-service="aires">
+                <!-- Refrigeración -->
+                <div class="service-card fade-in" data-service="aires" data-category="refrigeracion">
+                    <img src="imagenes/Mantenimiento de Aires Acondicionados.jpg" alt="Mantenimiento de Aires Acondicionados" class="service-image">
                     <i class="fas fa-wind"></i>
                     <h4>Mantenimiento de Aires Acondicionados</h4>
-                    <p>Limpieza, reparación y mantenimiento preventivo de sistemas de aire acondicionado residenciales y comerciales.</p>
+                    <p>Limpieza profunda, cambio de filtros, verificación de refrigerante y calibración de termostatos para un funcionamiento óptimo.</p>
                     <span class="click-hint">Haz clic para más detalles</span>
                 </div>
-                <div class="service-card fade-in" data-service="neveras">
+                <div class="service-card fade-in" data-service="neveras" data-category="refrigeracion">
+                    <img src="imagenes/nevera.jpg" alt="Reparación de Neveras y Congeladores" class="service-image">
                     <i class="fas fa-snowflake"></i>
                     <h4>Reparación de Neveras y Congeladores</h4>
-                    <p>Diagnóstico y reparación de electrodomésticos de refrigeración, incluyendo neveras, congeladores y dispensadores.</p>
+                    <p>Diagnóstico y reparación de compresores, evaporadores, termostatos y sistemas de descongelamiento.</p>
                     <span class="click-hint">Haz clic para más detalles</span>
                 </div>
-                <div class="service-card fade-in" data-service="industrial">
+                <div class="service-card fade-in" data-service="industrial" data-category="refrigeracion">
+                    <img src="imagenes/Sistemas de Refrigeración Industrial.jpg" alt="Sistemas de Refrigeración Industrial" class="service-image">
                     <i class="fas fa-cogs"></i>
                     <h4>Sistemas de Refrigeración Industrial</h4>
-                    <p>Instalación, mantenimiento y reparación de sistemas de refrigeración para comercios, restaurantes e industrias.</p>
+                    <p>Instalación y mantenimiento de cámaras frigoríficas, vitrinas refrigeradas y sistemas de climatización industrial.</p>
+                    <span class="click-hint">Haz clic para más detalles</span>
+                </div>
+                <div class="service-card fade-in" data-service="equipos" data-category="refrigeracion">
+                    <img src="imagenes/Reparación de Equipos de Refrigeración.jpg" alt="Reparación de Equipos de Refrigeración" class="service-image">
+                    <i class="fas fa-tools"></i>
+                    <h4>Reparación de Equipos de Refrigeración</h4>
+                    <p>Servicio técnico especializado para dispensadores de agua, máquinas de hielo y equipos comerciales de refrigeración.</p>
+                    <span class="click-hint">Haz clic para más detalles</span>
+                </div>
+                <div class="service-card fade-in" data-service="temperatura" data-category="refrigeracion">
+                    <img src="imagenes/Control de Temperatura y Monitoreo.jpg" alt="Control de Temperatura y Monitoreo" class="service-image">
+                    <i class="fas fa-thermometer-half"></i>
+                    <h4>Control de Temperatura y Monitoreo</h4>
+                    <p>Instalación de sistemas de monitoreo continuo para mantener temperaturas óptimas en almacenes y cámaras.</p>
+                    <span class="click-hint">Haz clic para más detalles</span>
+                </div>
+                <div class="service-card fade-in" data-service="refrigerante" data-category="refrigeracion">
+                    <img src="imagenes/Recarga y Mantenimiento de Refrigerante.jpg" alt="Recarga y Mantenimiento de Refrigerante" class="service-image">
+                    <i class="fas fa-recycle"></i>
+                    <h4>Recarga y Mantenimiento de Refrigerante</h4>
+                    <p>Recarga ecológica de refrigerantes, detección de fugas y mantenimiento preventivo para prolongar la vida útil de los equipos.</p>
                     <span class="click-hint">Haz clic para más detalles</span>
                 </div>
             </div>
@@ -96,7 +135,6 @@
                         <li><a href="index.html">Inicio</a></li>
                         <li><a href="acerca.html">Acerca de</a></li>
                         <li><a href="servicios.html">Servicios</a></li>
-                        <li><a href="refrigeracion.html">Refrigeración</a></li>
                         <li><a href="contactos.html">Contactos</a></li>
                     </ul>
                 </div>
@@ -112,9 +150,9 @@
                 <div class="footer-section">
                     <h3>Contáctanos</h3>
                     <ul>
-                        <li><i class="fas fa-phone"></i> +1 (809) 123-4567</li>
-                        <li><i class="fas fa-envelope"></i> info@multiservicios.com</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Santo Domingo, RD</li>
+                        <li><i class="fas fa-phone"></i> +1 (829) 696-2202</li>
+                        <li><i class="fas fa-envelope"></i> studiodilonz@gmail.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Santiago, RD</li>
                     </ul>
                 </div>
             </div>

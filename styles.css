@@ -1,5 +1,21 @@
-/* Import Google Fonts */
+ /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+
+/* CSS Variables for Themes */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #0056b3;
+    --accent-color: #ffd700;
+    --text-color: #333;
+    --bg-color: linear-gradient(135deg, #e0f7ff 0%, #f0f8ff 100%);
+    --card-bg: #fff;
+    --shadow: rgba(0,0,0,0.1);
+    --border-color: #dee2e6;
+    --footer-bg: linear-gradient(135deg, #333 0%, #555 100%);
+    --footer-text: #fff;
+}
+
+
 
 /* Reset and Base Styles */
 * {
@@ -11,10 +27,11 @@
 body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
-    color: #333;
-    background: linear-gradient(135deg, #e0f7ff 0%, #f0f8ff 100%);
+    color: var(--text-color);
+    background: var(--bg-color);
     opacity: 0;
     animation: fadeIn 1.5s ease-in-out forwards;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 @keyframes fadeIn {
@@ -32,12 +49,13 @@ body {
 
 /* Header */
 header {
-    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    box-shadow: 0 2px 10px var(--shadow);
     position: sticky;
     top: 0;
     z-index: 1000;
     animation: slideDown 0.8s ease-out;
+    transition: background 0.3s ease;
 }
 
 @keyframes slideDown {
@@ -61,6 +79,16 @@ header .container {
     font-family: 'Montserrat', sans-serif;
     font-size: 1.8rem;
     font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.logo h1:hover {
+    color: #ffd700;
+    transform: scale(1.05);
+}
+
+.logo a {
+    text-decoration: none;
 }
 
 .nav-menu {
@@ -98,6 +126,14 @@ header .container {
 .nav-menu a:hover {
     color: #ffd700;
 }
+
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+
 
 .hamburger {
     display: none;
@@ -220,6 +256,16 @@ section {
     position: relative;
 }
 
+.service-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 3px solid #007bff;
+    margin-bottom: 1rem;
+    display: none;
+}
+
 .service-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(0,0,0,0.2);
@@ -311,21 +357,25 @@ section {
     display: flex;
     flex-wrap: wrap;
     padding: 30px;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 .modal-image {
     flex: 1;
     min-width: 300px;
     margin-right: 30px;
-    border-radius: 10px;
+    border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
 
 .modal-image img {
     width: 100%;
     height: 300px;
     object-fit: cover;
+    border-radius: 10px;
+    border: 4px solid #007bff;
 }
 
 .modal-text {
@@ -504,6 +554,41 @@ section {
     padding: 2.5rem;
 }
 
+/* Service Tabs */
+.service-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tab-btn {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px solid #dee2e6;
+    color: #007bff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+.tab-btn:hover {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: #fff;
+    border-color: #007bff;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
 /* Contact */
 .contact {
     background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
@@ -667,6 +752,19 @@ footer {
     padding-top: 1rem;
 }
 
+/* Overlay for mobile menu */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    cursor: pointer;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .nav-menu {
@@ -680,6 +778,9 @@ footer {
         transition: left 0.3s ease;
         box-shadow: 0 10px 27px rgba(0,0,0,0.1);
         padding: 2rem 0;
+        z-index: 1000;
+        height: calc(100vh - 70px);
+        overflow-y: auto;
     }
 
     .nav-menu.active {
@@ -729,6 +830,145 @@ footer {
     .footer-content {
         grid-template-columns: 1fr;
     }
+}
+
+/* Tablet Styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .hero h2 {
+        font-size: 2.8rem;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+    }
+
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .mission-vision {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Large Screens */
+@media (min-width: 1025px) {
+    .hero h2 {
+        font-size: 3.5rem;
+    }
+
+    .hero p {
+        font-size: 1.4rem;
+    }
+
+    .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .contact-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+    }
+
+    .mission-vision {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .footer-content {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Small Phones */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    header .container {
+        padding: 0.5rem 15px;
+    }
+
+    .logo h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero {
+        padding: 4rem 0;
+    }
+
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .btn {
+        padding: 0.8rem 2rem;
+        font-size: 0.9rem;
+    }
+
+    .services-highlight h3 {
+        font-size: 2rem;
+    }
+
+    .service-card {
+        padding: 1.5rem;
+    }
+
+    .service-card i {
+        font-size: 2.5rem;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-content {
+        width: 95%;
+        margin: 5% auto;
+    }
+
+    .modal-body {
+        padding: 15px;
+    }
+
+    .modal-image {
+        min-width: 250px;
+    }
+}
+
+/* Fluid Typography */
+.hero h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+.hero p {
+    font-size: clamp(1rem, 3vw, 1.4rem);
+}
+
+.services-highlight h3 {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+}
+
+/* Fluid Spacing */
+section {
+    padding: clamp(2rem, 8vw, 4rem) 0;
+}
+
+.hero {
+    padding: clamp(4rem, 12vw, 6rem) 0;
 }
 
 /* Scroll Animations */
