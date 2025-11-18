@@ -91,6 +91,12 @@ header .container {
     text-decoration: none;
 }
 
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .nav-menu {
     display: flex;
     list-style: none;

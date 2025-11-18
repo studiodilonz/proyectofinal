@@ -1,10 +1,12 @@
 // Hamburger Menu Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
+const overlay = document.querySelector('.overlay');
 
 hamburger.addEventListener('click', () => {
     navMenu.classList.toggle('active');
     hamburger.classList.toggle('active');
+    overlay.classList.toggle('active');
 });
 
 // Close menu when clicking on a link
@@ -12,7 +14,15 @@ document.querySelectorAll('.nav-menu a').forEach(link => {
     link.addEventListener('click', () => {
         navMenu.classList.remove('active');
         hamburger.classList.remove('active');
+        overlay.classList.remove('active');
     });
+});
+
+// Close menu when clicking on overlay
+overlay.addEventListener('click', () => {
+    navMenu.classList.remove('active');
+    hamburger.classList.remove('active');
+    overlay.classList.remove('active');
 });
 
 // Scroll Animations
