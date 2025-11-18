@@ -67,7 +67,27 @@ if (contactForm) {
                 return;
             }
 
-            // Simulate form submission
+            // Save message to localStorage for admin panel
+            const contactMessage = {
+                name: name,
+                email: email,
+                phone: phone,
+                service: service,
+                message: message,
+                timestamp: new Date().toISOString(),
+                read: false
+            };
+
+            // Get existing messages or create empty array
+            const existingMessages = JSON.parse(localStorage.getItem('contactMessages')) || [];
+
+            // Add new message
+            existingMessages.push(contactMessage);
+
+            // Save back to localStorage
+            localStorage.setItem('contactMessages', JSON.stringify(existingMessages));
+
+            // Show success message
             showNotification('¡Mensaje enviado exitosamente! Nos pondremos en contacto contigo pronto.', 'success');
 
             // Reset form
@@ -146,31 +166,44 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 
 // Admin Login Functionality
-const adminLoginForm = document.getElementById('admin-login-form');
+document.addEventListener('DOMContentLoaded', function() {
+    const adminLoginForm = document.getElementById('admin-login-form');
 
-if (adminLoginForm) {
-    adminLoginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
+    if (adminLoginForm) {
+        console.log('Admin login form found and initialized');
 
-        const username = document.getElementById('username').value.trim();
-        const password = document.getElementById('password').value.trim();
+        adminLoginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('Login form submitted');
 
-        // Simple authentication (in a real app, this would be server-side)
-        if (username === 'admin' && password === 'admin123') {
-            // Store login status in localStorage
-            localStorage.setItem('adminLoggedIn', 'true');
-            // Redirect to admin panel
-            window.location.href = 'admin.html';
-        } else {
-            showNotification('Usuario o contraseña incorrectos.', 'error');
-        }
-    });
-}
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            console.log('Username:', username, 'Password length:', password.length);
+
+            // Simple authentication (in a real app, this would be server-side)
+            if (username === 'admin' && password === 'admin123') {
+                console.log('Authentication successful, redirecting to admin-panel.html');
+
+                // Store login status in sessionStorage
+                sessionStorage.setItem('adminLoggedIn', 'true');
+
+                // Redirect to admin panel with relative path for local development
+                window.location.href = 'admin-panel.html';
+            } else {
+                console.log('Authentication failed');
+                showNotification('Usuario o contraseña incorrectos.', 'error');
+            }
+        });
+    } else {
+        console.error('Admin login form not found!');
+    }
+});
 
 // Check if admin is logged in
 function checkAdminLogin() {
-    const isLoggedIn = localStorage.getItem('adminLoggedIn');
-    if (!isLoggedIn && window.location.pathname.includes('admin.html')) {
+    const isLoggedIn = sessionStorage.getItem('adminLoggedIn');
+    if (!isLoggedIn && window.location.pathname.includes('admin-panel.html')) {
         window.location.href = 'login.html';
     }
 }
@@ -180,7 +213,7 @@ const logoutBtn = document.getElementById('logout-btn');
 if (logoutBtn) {
     logoutBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        localStorage.removeItem('adminLoggedIn');
+        sessionStorage.removeItem('adminLoggedIn');
         window.location.href = 'index.html';
     });
 }
