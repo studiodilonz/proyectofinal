@@ -165,73 +165,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 
 
-// Admin Login Functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const adminLoginForm = document.getElementById('admin-login-form');
-
-    if (adminLoginForm) {
-        console.log('Admin login form found and initialized');
-
-        adminLoginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            console.log('Login form submitted');
-
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value.trim();
-
-            console.log('Username:', username, 'Password length:', password.length);
-
-            // Simple authentication (in a real app, this would be server-side)
-            if (username === 'admin' && password === 'admin123') {
-                console.log('Authentication successful, redirecting to admin-panel.html');
-
-                // Store login status in sessionStorage
-                sessionStorage.setItem('adminLoggedIn', 'true');
-
-                // Redirect to admin panel with relative path for local development
-                window.location.href = 'admin-panel.html';
-            } else {
-                console.log('Authentication failed');
-                showNotification('Usuario o contraseña incorrectos.', 'error');
-            }
-        });
-    } else {
-        console.error('Admin login form not found!');
-    }
-});
-
-// Check if admin is logged in
-function checkAdminLogin() {
-    const isLoggedIn = sessionStorage.getItem('adminLoggedIn');
-    if (!isLoggedIn && window.location.pathname.includes('admin-panel.html')) {
-        window.location.href = 'index.html';
-    }
-}
-
-// Logout functionality
-const logoutBtn = document.getElementById('logout-btn');
-if (logoutBtn) {
-    logoutBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        sessionStorage.removeItem('adminLoggedIn');
-        window.location.href = 'index.html';
-    });
-}
-
-// Admin card click handlers
-document.addEventListener('DOMContentLoaded', function() {
-    const adminCards = document.querySelectorAll('.admin-card .btn');
-    adminCards.forEach(btn => {
-        btn.addEventListener('click', function() {
-            showNotification('Funcionalidad próximamente disponible.', 'error');
-        });
-    });
-});
-
 // Add loading animation to page
 window.addEventListener('load', () => {
     document.body.style.opacity = '1';
-    checkAdminLogin();
 });
 
 // Parallax effect for hero section (subtle)
