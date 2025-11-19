@@ -235,6 +235,29 @@ class AdminPanel {
         document.getElementById('service-cancel-btn').addEventListener('click', () => {
             this.closeServiceModal();
         });
+
+        // Event delegation for edit and delete buttons
+        document.getElementById('services-grid').addEventListener('click', (e) => {
+            console.log('Click detected on services-grid');
+            const target = e.target.closest('button');
+            console.log('Target button:', target);
+            if (!target) return;
+
+            const serviceCard = target.closest('.service-card');
+            console.log('Service card:', serviceCard);
+            if (!serviceCard) return;
+
+            const index = parseInt(serviceCard.getAttribute('data-index'));
+            console.log('Index:', index);
+
+            if (target.classList.contains('edit-btn')) {
+                console.log('Edit button clicked');
+                this.editService(index);
+            } else if (target.classList.contains('delete-btn')) {
+                console.log('Delete button clicked');
+                this.deleteService(index);
+            }
+        });
     }
 
     loadServices() {
@@ -252,7 +275,7 @@ class AdminPanel {
         }
 
         container.innerHTML = this.services.map((service, index) => `
-            <div class="service-card">
+            <div class="service-card" data-index="${index}">
                 <div class="service-header">
                     <div class="service-title">${service.title}</div>
                     <span class="service-category">${service.category}</span>
@@ -260,10 +283,10 @@ class AdminPanel {
                 <div class="service-content">
                     <div class="service-description">${service.description}</div>
                     <div class="service-actions">
-                        <button class="edit-btn" onclick="adminPanel.editService(${index})">
+                        <button class="edit-btn">
                             <i class="fas fa-edit"></i> Editar
                         </button>
-                        <button class="delete-btn" onclick="adminPanel.deleteService(${index})">
+                        <button class="delete-btn">
                             <i class="fas fa-trash"></i> Eliminar
                         </button>
                     </div>
@@ -317,6 +340,7 @@ class AdminPanel {
         this.saveServices();
         this.loadServices();
         this.updateStats();
+        this.updateWebsiteServices(); // Update the main website
         this.closeServiceModal();
         this.showNotification('Servicio guardado exitosamente', 'success');
     }
@@ -331,6 +355,7 @@ class AdminPanel {
             this.saveServices();
             this.loadServices();
             this.updateStats();
+            this.updateWebsiteServices(); // Update the main website
             this.showNotification('Servicio eliminado', 'success');
         }
     }
@@ -721,6 +746,14 @@ class AdminPanel {
         document.querySelectorAll('.modal').forEach(modal => {
             modal.style.display = 'none';
         });
+    }
+
+    // Update Website Services
+    updateWebsiteServices() {
+        // This function will update the main website pages with the new services
+        // For now, we'll store the services in a way that can be accessed by other pages
+        localStorage.setItem('websiteServices', JSON.stringify(this.services));
+        this.showNotification('Sitio web actualizado con los nuevos servicios', 'success');
     }
 
     // Utility Functions
