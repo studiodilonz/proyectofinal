@@ -1,10 +1,12 @@
 // Hamburger Menu Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
+const overlay = document.querySelector('.overlay');
 
 hamburger.addEventListener('click', () => {
     navMenu.classList.toggle('active');
     hamburger.classList.toggle('active');
+    overlay.classList.toggle('active');
 });
 
 // Close menu when clicking on a link
@@ -12,7 +14,15 @@ document.querySelectorAll('.nav-menu a').forEach(link => {
     link.addEventListener('click', () => {
         navMenu.classList.remove('active');
         hamburger.classList.remove('active');
+        overlay.classList.remove('active');
     });
+});
+
+// Close menu when clicking on overlay
+overlay.addEventListener('click', () => {
+    navMenu.classList.remove('active');
+    hamburger.classList.remove('active');
+    overlay.classList.remove('active');
 });
 
 // Scroll Animations
@@ -57,7 +67,27 @@ if (contactForm) {
                 return;
             }
 
-            // Simulate form submission
+            // Save message to localStorage for admin panel
+            const contactMessage = {
+                name: name,
+                email: email,
+                phone: phone,
+                service: service,
+                message: message,
+                timestamp: new Date().toISOString(),
+                read: false
+            };
+
+            // Get existing messages or create empty array
+            const existingMessages = JSON.parse(localStorage.getItem('contactMessages')) || [];
+
+            // Add new message
+            existingMessages.push(contactMessage);
+
+            // Save back to localStorage
+            localStorage.setItem('contactMessages', JSON.stringify(existingMessages));
+
+            // Show success message
             showNotification('¡Mensaje enviado exitosamente! Nos pondremos en contacto contigo pronto.', 'success');
 
             // Reset form
@@ -211,13 +241,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Service card click handlers for modal
 document.addEventListener('DOMContentLoaded', function() {
+    // Wait for services to load before setting up modal handlers
+    setTimeout(() => {
+        setupServiceModal();
+    }, 100);
+});
+
+function setupServiceModal() {
     const serviceCards = document.querySelectorAll('.service-card[data-service]');
     const modal = document.getElementById('service-modal');
     const closeModal = document.querySelector('.close-modal');
 
     if (serviceCards.length > 0 && modal) {
-        // Service data
-        const serviceData = {
+        // Default service data for detailed modals
+        const defaultServiceData = {
             // Refrigeration services
             aires: {
                 title: 'Mantenimiento de Aires Acondicionados',
@@ -369,8 +406,26 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add click event to each service card
         serviceCards.forEach(card => {
             card.addEventListener('click', function() {
-                const service = this.getAttribute('data-service');
-                const data = serviceData[service];
+                const serviceKey = this.getAttribute('data-service');
+                let data = defaultServiceData[serviceKey];
+
+                // If not in default data, check if it's an admin service
+                if (!data && window.servicesData) {
+                    const adminService = window.servicesData.find(s => s.dataService === serviceKey || s.dataService === 'admin-service-' + Array.from(serviceCards).indexOf(this));
+                    if (adminService) {
+                        data = {
+                            title: adminService.title,
+                            image: adminService.image || 'imagenes/default-service.jpg',
+                            description: adminService.description,
+                            features: [
+                                'Servicio personalizado',
+                                'Atención profesional',
+                                'Garantía en trabajos',
+                                'Presupuesto sin compromiso'
+                            ]
+                        };
+                    }
+                }
 
                 if (data) {
                     // Populate modal
@@ -410,4 +465,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-});
+}

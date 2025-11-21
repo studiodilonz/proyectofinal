@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Multiservicios Eléctricos</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+</head>
+<body>
+    <!-- Login Overlay -->
+    <div id="login-overlay" class="login-overlay">
+        <div class="login-container">
+            <div class="login-header">
+                <i class="fas fa-bolt"></i>
+                <h2>Panel de Administración</h2>
+                <p>Multiservicios Eléctricos</p>
+            </div>
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="username"><i class="fas fa-user"></i> Usuario</label>
+                    <input type="text" id="username" name="username" required placeholder="Ingresa tu usuario">
+                </div>
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-lock"></i> Contraseña</label>
+                    <input type="password" id="password" name="password" required placeholder="Ingresa tu contraseña">
+                </div>
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="remember" name="remember">
+                        Recordarme
+                    </label>
+                    <a href="#" id="forgot-password">¿Olvidaste tu contraseña?</a>
+                </div>
+                <button type="submit" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Iniciar Sesión
+                </button>
+            </form>
+            <div id="login-message" class="login-message"></div>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="admin-panel" class="admin-panel">
+        <!-- Sidebar -->
+        <nav class="admin-sidebar" id="admin-sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-bolt"></i>
+                <span>Multiservicios</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="menu-item active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </li>
+                <li class="menu-item" data-section="services">
+                    <i class="fas fa-tools"></i>
+                    <span>Servicios</span>
+                </li>
+                <li class="menu-item" data-section="about">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Acerca de</span>
+                </li>
+                <li class="menu-item" data-section="contact">
+                    <i class="fas fa-phone"></i>
+                    <span>Contacto</span>
+                </li>
+                <li class="menu-item" data-section="images">
+                    <i class="fas fa-images"></i>
+                    <span>Imágenes</span>
+                </li>
+                <li class="menu-item" data-section="messages">
+                    <i class="fas fa-envelope"></i>
+                    <span>Mensajes</span>
+                    <span class="message-count" id="message-count"></span>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Cerrar Sesión
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Admin Header -->
+            <header class="admin-header">
+                <div class="header-left">
+                    <button class="sidebar-toggle" id="sidebar-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 id="page-title">Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <div class="user-info">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="user-name">Administrador</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Admin Content -->
+            <div class="admin-content">
+                <!-- Dashboard Section -->
+                <section id="dashboard-section" class="content-section active">
+                    <div class="dashboard-grid">
+                        <div class="dashboard-card">
+                            <div class="card-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Servicios</h3>
+                                <p id="services-count">0</p>
+                                <span>Total registrados</span>
+                            </div>
+                        </div>
+                        <div class="dashboard-card">
+                            <div class="card-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Mensajes</h3>
+                                <p id="messages-count">0</p>
+                                <span>No leídos</span>
+                            </div>
+                        </div>
+                        <div class="dashboard-card">
+                            <div class="card-icon">
+                                <i class="fas fa-images"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Imágenes</h3>
+                                <p id="images-count">0</p>
+                                <span>Subidas</span>
+                            </div>
+                        </div>
+                        <div class="dashboard-card">
+                            <div class="card-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Visitas</h3>
+                                <p id="visits-count">0</p>
+                                <span>Este mes</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quick-actions">
+                        <h3>Acciones Rápidas</h3>
+                        <div class="actions-grid">
+                            <button class="action-btn" data-action="add-service">
+                                <i class="fas fa-plus"></i>
+                                <span>Agregar Servicio</span>
+                            </button>
+                            <button class="action-btn" data-action="edit-about">
+                                <i class="fas fa-edit"></i>
+                                <span>Editar Acerca de</span>
+                            </button>
+                            <button class="action-btn" data-action="edit-contact">
+                                <i class="fas fa-phone"></i>
+                                <span>Editar Contacto</span>
+                            </button>
+                            <button class="action-btn" data-action="upload-image">
+                                <i class="fas fa-upload"></i>
+                                <span>Subir Imagen</span>
+                            </button>
+                            <button class="action-btn" data-action="view-messages">
+                                <i class="fas fa-envelope"></i>
+                                <span>Ver Mensajes</span>
+                            </button>
+                            <button class="action-btn" data-action="export-data">
+                                <i class="fas fa-download"></i>
+                                <span>Exportar Datos</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Services Section -->
+                <section id="services-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Gestión de Servicios</h2>
+                        <div class="header-actions">
+                            <button id="add-service-btn" class="btn-primary">
+                                <i class="fas fa-plus"></i>
+                                Agregar Servicio
+                            </button>
+                        </div>
+                    </div>
+                    <div class="services-management">
+                        <div id="services-list" class="services-list">
+                            <!-- Services will be loaded here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- About Section -->
+                <section id="about-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Editor de "Acerca de"</h2>
+                        <div class="header-actions">
+                            <button id="save-about-btn" class="btn-primary">
+                                <i class="fas fa-save"></i>
+                                Guardar Cambios
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-container">
+                        <div class="editor-toolbar">
+                            <button class="toolbar-btn" data-command="bold" title="Negrita">
+                                <i class="fas fa-bold"></i>
+                            </button>
+                            <button class="toolbar-btn" data-command="italic" title="Cursiva">
+                                <i class="fas fa-italic"></i>
+                            </button>
+                            <button class="toolbar-btn" data-command="underline" title="Subrayado">
+                                <i class="fas fa-underline"></i>
+                            </button>
+                            <span class="toolbar-separator"></span>
+                            <button class="toolbar-btn" data-command="insertUnorderedList" title="Lista">
+                                <i class="fas fa-list-ul"></i>
+                            </button>
+                            <button class="toolbar-btn" data-command="insertOrderedList" title="Lista numerada">
+                                <i class="fas fa-list-ol"></i>
+                            </button>
+                            <span class="toolbar-separator"></span>
+                            <button class="toolbar-btn" data-command="justifyLeft" title="Alinear izquierda">
+                                <i class="fas fa-align-left"></i>
+                            </button>
+                            <button class="toolbar-btn" data-command="justifyCenter" title="Centrar">
+                                <i class="fas fa-align-center"></i>
+                            </button>
+                            <button class="toolbar-btn" data-command="justifyRight" title="Alinear derecha">
+                                <i class="fas fa-align-right"></i>
+                            </button>
+                        </div>
+                        <div id="about-editor" class="editor-content" contenteditable="true">
+                            <!-- About content will be loaded here -->
+                        </div>
+                    </div>
+                    <div class="preview-section">
+                        <h3>Vista Previa</h3>
+                        <div id="about-preview" class="preview-content">
+                            <!-- Preview will be shown here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contact Section -->
+                <section id="contact-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Información de Contacto</h2>
+                        <div class="header-actions">
+                            <button id="save-contact-btn" class="btn-primary">
+                                <i class="fas fa-save"></i>
+                                Guardar Cambios
+                            </button>
+                        </div>
+                    </div>
+                    <div class="contact-editor">
+                        <form id="contact-form" class="contact-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="contact-phone">Teléfono</label>
+                                    <input type="tel" id="contact-phone" name="phone" placeholder="+1 (829) 696-2202">
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact-email">Correo Electrónico</label>
+                                    <input type="email" id="contact-email" name="email" placeholder="studiodilonz@gmail.com">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-address">Dirección</label>
+                                <input type="text" id="contact-address" name="address" placeholder="C-4, Santiago de los Caballeros 51000, República Dominicana">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="contact-hours">Horario de Atención</label>
+                                    <input type="text" id="contact-hours" name="hours" placeholder="24/7">
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact-emergency">Emergencias</label>
+                                    <input type="text" id="contact-emergency" name="emergency" placeholder="24/7">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Images Section -->
+                <section id="images-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Gestión de Imágenes</h2>
+                        <div class="header-actions">
+                            <button id="upload-image-btn" class="btn-primary">
+                                <i class="fas fa-upload"></i>
+                                Subir Imagen
+                            </button>
+                        </div>
+                    </div>
+                    <div class="images-management">
+                        <div class="upload-zone" id="upload-zone">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Arrastra y suelta imágenes aquí</p>
+                            <span>o haz clic para seleccionar archivos</span>
+                            <input type="file" id="image-upload" multiple accept="image/*" style="display: none;">
+                        </div>
+                        <div id="images-grid" class="images-grid">
+                            <!-- Images will be loaded here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Messages Section -->
+                <section id="messages-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Mensajes de Contacto</h2>
+                        <div class="header-actions">
+                            <button id="refresh-messages-btn" class="btn-secondary">
+                                <i class="fas fa-sync-alt"></i>
+                                Actualizar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="messages-management">
+                        <div id="messages-list" class="messages-list">
+                            <!-- Messages will be loaded here -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- Service Modal -->
+    <div id="service-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="service-modal-title">Agregar Servicio</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="service-form" class="service-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="service-title">Título del Servicio</label>
+                            <input type="text" id="service-title" name="title" required placeholder="Ej: Instalaciones Eléctricas">
+                        </div>
+                        <div class="form-group">
+                            <label for="service-category">Categoría</label>
+                            <select id="service-category" name="category" required>
+                                <option value="">Seleccionar categoría</option>
+                                <option value="electricidad">Electricidad</option>
+                                <option value="plomeria">Plomería</option>
+                                <option value="refrigeracion">Refrigeración</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="service-description">Descripción</label>
+                        <textarea id="service-description" name="description" required rows="4" placeholder="Describe el servicio..."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="service-icon">Icono (FontAwesome)</label>
+                            <input type="text" id="service-icon" name="icon" placeholder="fas fa-tools" value="fas fa-tools">
+                        </div>
+                        <div class="form-group">
+                            <label for="service-order">Orden</label>
+                            <input type="number" id="service-order" name="order" min="1" value="1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="service-image">Imagen (opcional)</label>
+                        <input type="text" id="service-image" name="image" placeholder="imagenes/servicio.jpg">
+                    </div>
+                </form>
+                <div class="service-preview">
+                    <h4>Vista Previa</h4>
+                    <div class="preview-card">
+                        <i id="preview-icon" class="fas fa-tools"></i>
+                        <h4 id="preview-title">Título del Servicio</h4>
+                        <p id="preview-description">Descripción del servicio aparecerá aquí...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-service-btn" class="btn-secondary">Cancelar</button>
+                <button id="save-service-btn" class="btn-primary">Guardar Servicio</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="image-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Vista de Imagen</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img id="modal-image" src="" alt="Imagen" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 10px;">
+            </div>
+            <div class="modal-footer">
+                <button id="delete-image-btn" class="btn-danger">Eliminar Imagen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Modal -->
+    <div id="message-modal" class="modal">
+        <div class="modal-content small-modal">
+            <div class="modal-header">
+                <h3>Detalle del Mensaje</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="message-details" class="message-details">
+                    <!-- Message details will be loaded here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="mark-read-btn" class="btn-primary">Marcar como Leído</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
