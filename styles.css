@@ -421,7 +421,7 @@ section {
 }
 
 @keyframes slideIn {
-    from { transform: translateY(10px); opacity: 0; }
+        from { transform: translateY(10px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
 
@@ -1006,23 +1006,3 @@ section {
     opacity: 1;
     transform: translateX(0);
 }
-
-/* filepath: c:\Users\Admin\OneDrive\Documentos\GitHub\proyectofinal\servicios.html */
-/* ...existing code... */
-
-            <div class="modal-body">
-                <div class="modal-image">
-                    <img id="modal-image" src="" alt="Service Image">
-                </div>
-                <div class="modal-text">
-                    <h3 id="modal-title"></h3>
-                    <p id="modal-description"></p>
-                    <div class="modal-details">
-                        <!-- Lista de características que rellena scripts.js -->
-                        <ul id="modal-features"></ul>
-                    </div>
-                    <a href="contactos.html" class="btn modal-btn">Solicitar Servicio</a>
-                </div>
-            </div>
-
-/* ...existing code... */
