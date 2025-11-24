@@ -1,12 +1,10 @@
 // Hamburger Menu Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
-const overlay = document.querySelector('.overlay');
 
 hamburger.addEventListener('click', () => {
     navMenu.classList.toggle('active');
     hamburger.classList.toggle('active');
-    overlay.classList.toggle('active');
 });
 
 // Close menu when clicking on a link
@@ -14,15 +12,7 @@ document.querySelectorAll('.nav-menu a').forEach(link => {
     link.addEventListener('click', () => {
         navMenu.classList.remove('active');
         hamburger.classList.remove('active');
-        overlay.classList.remove('active');
     });
-});
-
-// Close menu when clicking on overlay
-overlay.addEventListener('click', () => {
-    navMenu.classList.remove('active');
-    hamburger.classList.remove('active');
-    overlay.classList.remove('active');
 });
 
 // Scroll Animations
@@ -44,7 +34,7 @@ document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(e
     observer.observe(element);
 });
 
-// Enhanced Form Handling
+// Enhanced Form Handling with EmailJS
 const contactForm = document.getElementById('contact-form');
 
 if (contactForm) {
@@ -67,31 +57,29 @@ if (contactForm) {
                 return;
             }
 
-            // Save message to localStorage for admin panel
-            const contactMessage = {
-                name: name,
-                email: email,
+            // Initialize EmailJS
+            emailjs.init('7cAWeD0UWRhZS6Zf_');
+
+            // Prepare template parameters
+            const templateParams = {
+                from_name: name,
+                from_email: email,
                 phone: phone,
                 service: service,
                 message: message,
-                timestamp: new Date().toISOString(),
-                read: false
+                to_email: 'studiodilonz@gmail.com' // Destination email
             };
 
-            // Get existing messages or create empty array
-            const existingMessages = JSON.parse(localStorage.getItem('contactMessages')) || [];
-
-            // Add new message
-            existingMessages.push(contactMessage);
-
-            // Save back to localStorage
-            localStorage.setItem('contactMessages', JSON.stringify(existingMessages));
-
-            // Show success message
-            showNotification('¡Mensaje enviado exitosamente! Nos pondremos en contacto contigo pronto.', 'success');
-
-            // Reset form
-            contactForm.reset();
+            // Send email
+            emailjs.send('service_qjkeud1', 'template_tqetymj', templateParams)
+                .then((response) => {
+                    console.log('SUCCESS!', response.status, response.text);
+                    showNotification('¡Mensaje enviado exitosamente! Nos pondremos en contacto contigo pronto.', 'success');
+                    contactForm.reset();
+                }, (error) => {
+                    console.log('FAILED...', error);
+                    showNotification('Error al enviar el mensaje. Por favor, intenta de nuevo.', 'error');
+                });
         } else {
             showNotification('Por favor, completa todos los campos obligatorios.', 'error');
         }
@@ -206,61 +194,52 @@ document.addEventListener('DOMContentLoaded', function() {
     const tabButtons = document.querySelectorAll('.tab-btn');
     const serviceCards = document.querySelectorAll('.service-card');
 
-    // Function to filter services based on category
-    function filterServices(category) {
-        serviceCards.forEach(card => {
-            const image = card.querySelector('.service-image');
-            if (category === 'todos' || card.getAttribute('data-category') === category) {
-                card.style.display = 'block';
-                if (image) {
-                    image.style.display = 'block';
-                }
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    }
-
-    // Set up tab button event listeners
     if (tabButtons.length > 0) {
         tabButtons.forEach(button => {
             button.addEventListener('click', function() {
-                // Update active class on buttons
+                // Remove active class from all buttons
                 tabButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
                 this.classList.add('active');
 
-                // Filter the services
                 const category = this.getAttribute('data-category');
-                filterServices(category);
+
+                // Show/hide cards based on category
+                serviceCards.forEach(card => {
+                    if (category === 'todos' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'block';
+                        // Show images only when clicking on tabs
+                        const image = card.querySelector('.service-image');
+                        if (image) {
+                            image.style.display = 'block';
+                        }
+                    } else {
+                        card.style.display = 'none';
+                        // Hide images for non-active categories
+                        const image = card.querySelector('.service-image');
+                        if (image) {
+                            image.style.display = 'none';
+                        }
+                    }
+                });
             });
         });
     }
-
-    // Initially filter services to show 'todos'
-    const initialCategory = document.querySelector('.tab-btn.active')?.getAttribute('data-category') || 'todos';
-    filterServices(initialCategory);
 });
 
 // Service card click handlers for modal
 document.addEventListener('DOMContentLoaded', function() {
-    // Wait for services to load before setting up modal handlers
-    setTimeout(() => {
-        setupServiceModal();
-    }, 100);
-});
-
-function setupServiceModal() {
     const serviceCards = document.querySelectorAll('.service-card[data-service]');
     const modal = document.getElementById('service-modal');
     const closeModal = document.querySelector('.close-modal');
 
     if (serviceCards.length > 0 && modal) {
-        // Default service data for detailed modals
-        const defaultServiceData = {
+        // Service data
+        const serviceData = {
             // Refrigeration services
             aires: {
                 title: 'Mantenimiento de Aires Acondicionados',
-                image: 'imagenes/Mantenimiento de Aires Acondicionados.jpg',
+                image: 'imagenes/Mantenimiento de Aires Acondicionados09.jpg',
                 description: 'Servicio completo de mantenimiento preventivo y correctivo para sistemas de aire acondicionado. Garantizamos el óptimo funcionamiento de su equipo durante todo el año.',
                 features: [
                     'Limpieza profunda de filtros y serpentines',
@@ -273,7 +252,7 @@ function setupServiceModal() {
             },
             neveras: {
                 title: 'Reparación de Neveras y Congeladores',
-                image: 'imagenes/nevera.jpg',
+                image: 'imagenes/nevera09.jpg',
                 description: 'Diagnóstico profesional y reparación especializada de neveras, congeladores y equipos de refrigeración comercial. Solucionamos cualquier problema técnico.',
                 features: [
                     'Diagnóstico electrónico avanzado',
@@ -286,7 +265,7 @@ function setupServiceModal() {
             },
             industrial: {
                 title: 'Sistemas de Refrigeración Industrial',
-                image: 'imagenes/Sistemas de Refrigeración Industrial.jpg',
+                image: 'imagenes/Sistemas de Refrigeración Industrial09.jpg',
                 description: 'Instalación, mantenimiento y reparación de sistemas de refrigeración industrial para almacenes, fábricas y comercios. Tecnología de vanguardia para máxima eficiencia.',
                 features: [
                     'Instalación de cámaras frigoríficas',
@@ -299,7 +278,7 @@ function setupServiceModal() {
             },
             equipos: {
                 title: 'Reparación de Equipos de Refrigeración',
-                image: 'imagenes/Reparación de Equipos de Refrigeración.jpg',
+                image: 'imagenes/Reparación de Equipos de Refrigeración09.jpg',
                 description: 'Servicio técnico especializado para dispensadores de agua, máquinas de hielo y equipos comerciales de refrigeración. Reparaciones rápidas y garantizadas.',
                 features: [
                     'Reparación de dispensadores de agua',
@@ -312,7 +291,7 @@ function setupServiceModal() {
             },
             temperatura: {
                 title: 'Control de Temperatura y Monitoreo',
-                image: 'imagenes/Control de Temperatura y Monitoreo.jpg',
+                image: 'imagenes/Control de Temperatura y Monitoreo09.jpg',
                 description: 'Instalación de sistemas avanzados de monitoreo continuo para mantener temperaturas óptimas en almacenes, cámaras y áreas refrigeradas.',
                 features: [
                     'Instalación de sensores de temperatura',
@@ -325,7 +304,7 @@ function setupServiceModal() {
             },
             refrigerante: {
                 title: 'Recarga y Mantenimiento de Refrigerante',
-                image: 'imagenes/Recarga y Mantenimiento de Refrigerante.jpg',
+                image: 'imagenes/Recarga y Mantenimiento de Refrigerante09.jpg',
                 description: 'Recarga ecológica de refrigerantes con productos certificados. Detección de fugas y mantenimiento preventivo para prolongar la vida útil de sus equipos.',
                 features: [
                     'Recarga con refrigerantes ecológicos R-134a, R-410A',
@@ -339,7 +318,7 @@ function setupServiceModal() {
             // Electricity services
             electricidad_residencial: {
                 title: 'Instalaciones Eléctricas Residenciales',
-                image: 'imagenes/Instalaciones Eléctricas Residenciales.jpg',
+                image: 'imagenes/Instalaciones Eléctricas Residenciales09.jpg',
                 description: 'Instalación completa de sistemas eléctricos en viviendas, incluyendo cableado, tomas, interruptores y sistemas de iluminación. Cumplimos con todas las normativas de seguridad.',
                 features: [
                     'Instalación de cableado estructurado',
@@ -352,7 +331,7 @@ function setupServiceModal() {
             },
             electricidad_industrial: {
                 title: 'Instalaciones Eléctricas Industriales',
-                image: 'imagenes/Instalaciones Eléctricas industriales.jpg',
+                image: 'imagenes/Instalaciones Eléctricas industriales09.jpg',
                 description: 'Soluciones eléctricas para empresas, fábricas y comercios con sistemas de alta capacidad y seguridad industrial. Diseñamos sistemas eficientes y seguros.',
                 features: [
                     'Instalación de transformadores y subestaciones',
@@ -365,7 +344,7 @@ function setupServiceModal() {
             },
             reparacion_electrica: {
                 title: 'Reparación y Mantenimiento Eléctrico',
-                image: 'imagenes/Reparación y Mantenimiento Eléctrico.jpg',
+                image: 'imagenes/Reparación y Mantenimiento Eléctrico09.jpg',
                 description: 'Diagnóstico y reparación de fallos eléctricos, mantenimiento preventivo y actualización de instalaciones existentes. Servicio rápido y profesional.',
                 features: [
                     'Diagnóstico de fallos eléctricos',
@@ -379,7 +358,7 @@ function setupServiceModal() {
             // Plumbing services
             plomeria_general: {
                 title: 'Servicios de Plomería General',
-                image: 'imagenes/Servicios de Plomería General.jpg',
+                image: 'imagenes/Servicios de Plomería General09.jpg',
                 description: 'Instalación y reparación de tuberías, grifería, sanitarios y sistemas de agua potable y desagüe. Trabajamos con materiales de alta calidad.',
                 features: [
                     'Instalación de tuberías de agua y desagüe',
@@ -392,7 +371,7 @@ function setupServiceModal() {
             },
             plomeria_emergencias: {
                 title: 'Plomería de Emergencias',
-                image: 'imagenes/Plomería de Emergencias.jpg',
+                image: 'imagenes/Plomería de Emergencias09.jpg',
                 description: 'Servicio 24/7 para emergencias de plomería: fugas, inundaciones, obstrucciones y reparaciones urgentes. Respuesta inmediata garantizada.',
                 features: [
                     'Servicio de emergencias 24 horas',
@@ -408,26 +387,8 @@ function setupServiceModal() {
         // Add click event to each service card
         serviceCards.forEach(card => {
             card.addEventListener('click', function() {
-                const serviceKey = this.getAttribute('data-service');
-                let data = defaultServiceData[serviceKey];
-
-                // If not in default data, check if it's an admin service
-                if (!data && window.servicesData) {
-                    const adminService = window.servicesData.find(s => s.dataService === serviceKey || s.dataService === 'admin-service-' + Array.from(serviceCards).indexOf(this));
-                    if (adminService) {
-                        data = {
-                            title: adminService.title,
-                            image: adminService.image || 'imagenes/default-service.jpg',
-                            description: adminService.description,
-                            features: [
-                                'Servicio personalizado',
-                                'Atención profesional',
-                                'Garantía en trabajos',
-                                'Presupuesto sin compromiso'
-                            ]
-                        };
-                    }
-                }
+                const service = this.getAttribute('data-service');
+                const data = serviceData[service];
 
                 if (data) {
                     // Populate modal
@@ -467,4 +428,4 @@ function setupServiceModal() {
             }
         });
     }
-}
+});

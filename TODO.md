@@ -1,10 +1,19 @@
-# Fixes for Layout Issues in servicios.html and styles.css
+# TODO: Implementar envío de formulario por correo
 
-## Tasks
-- [x] Add z-index: 1 to .service-card (already has position: relative)
-- [x] Add z-index: 0 to .service-card img to ensure images don't cover text
-- [x] Change .service-image height from 150px to auto to prevent overflow
-- [x] Change .modal-image img height from 300px to auto
-- [x] Change .map-image height from 300px to auto
-- [x] Add overflow: hidden to .services section
-- [x] Ensure images have proper sizing with width: 100%; height: auto; object-fit: cover
+## Pasos a completar:
+- [x] Agregar script de EmailJS a contactos.html
+- [x] Modificar scripts.js para usar EmailJS en el envío del formulario
+- [x] Configurar EmailJS: Crear cuenta, servicio, plantilla y obtener claves
+- [x] Reemplazar placeholders en scripts.js con claves reales
+
+## Instrucciones para EmailJS:
+1. Crear cuenta en https://www.emailjs.com/
+2. Configurar un servicio de email (Gmail recomendado)
+3. Crear una plantilla de email con las variables: {{from_name}}, {{from_email}}, {{phone}}, {{service}}, {{message}}
+4. Obtener las claves: Service ID, Template ID, Public Key
+5. Reemplazar los placeholders en scripts.js con las claves reales
+
+## Claves configuradas:
+- Service ID: service_qjkeud1
+- Template ID: template_tqetymj
+- Public Key: 7cAWeD0UWRhZS6Zf_
