@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Servicios Técnicos</title>
+    <link rel="stylesheet" href="admin_styles.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Additional modern styles for admin panel */
+        .welcome-section {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .welcome-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .welcome-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card-large {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #dee2e6;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card-large::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #007bff, #0056b3, #ffd700);
+        }
+
+        .stat-card-large:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #007bff;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            padding: 2rem;
+        }
+
+        .sidebar-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .quick-actions {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .quick-actions h3 {
+            color: #007bff;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: white;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        .recent-activity {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            flex: 1;
+        }
+
+        .recent-activity h3 {
+            color: #007bff;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .activity-content h4 {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .activity-content p {
+            margin: 0.25rem 0 0 0;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .data-table-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .table-header {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .table-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem;
+            border: 2px solid #dee2e6;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            width: 250px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+
+        .refresh-btn {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .contacts-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .contacts-table th,
+        .contacts-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .contacts-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .contacts-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-new {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .contact-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-small {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.8rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-view {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-view:hover {
+            background: #0056b3;
+        }
+
+        .loading-state {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+
+        .loading-spinner {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .error-state {
+            text-align: center;
+            padding: 3rem;
+            color: #dc3545;
+        }
+
+        .help-tooltip {
+            position: relative;
+            display: inline-block;
+            margin-left: 0.5rem;
+            cursor: help;
+        }
+
+        .help-tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+        }
+
+        .help-tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-section h1 {
+                font-size: 2rem;
+            }
+
+            .stats-overview {
+                grid-template-columns: 1fr;
+            }
+
+            .table-controls {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+
+            .activity-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-dashboard">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="container">
+                <h1><i class="fas fa-cogs"></i> Panel de Administración</h1>
+                <nav class="admin-nav">
+                    <a href="#dashboard" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    <a href="admin_services.html"><i class="fas fa-tools"></i> Servicios</a>
+                    <a href="admin_company.html"><i class="fas fa-building"></i> Empresa</a>
+                    <a href="#" onclick="logout()" class="admin-logout"><i class="fas fa-sign-out-alt"></i> Salir</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <div class="container">
+                <h1>¡Bienvenido al Panel de Administración!</h1>
+                <p>Administra tu sitio web de servicios técnicos de forma sencilla e intuitiva</p>
+            </div>
+        </section>
+
+        <main class="admin-main">
+            <div class="container">
+                <!-- Statistics Overview -->
+                <div class="stats-overview" id="stats-overview">
+                    <div class="stat-card-large">
+                        <div class="stat-icon">
+                            <i class="fas fa-wrench"></i>
+                        </div>
+                        <div class="stat-number">--</div>
+                        <div class="stat-label">Servicios Activos</div>
+                    </div>
+                    <div class="stat-card-large">
+                        <div class="stat-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="stat-number">--</div>
+                        <div class="stat-label">Total Contactos</div>
+                    </div>
+                    <div class="stat-card-large">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-number">--</div>
+                        <div class="stat-label">Contactos Recientes</div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Grid -->
+                <div class="dashboard-grid">
+                    <!-- Main Content -->
+                    <div class="main-content">
+                        <div class="data-table-container">
+                            <div class="table-header">
+                                <h3><i class="fas fa-users"></i> Contactos Recientes</h3>
+                                <div class="table-controls">
+                                    <input type="text" class="search-input" placeholder="Buscar contactos..." id="search-input">
+                                    <button class="refresh-btn" onclick="refreshData()">
+                                        <i class="fas fa-sync-alt"></i> Actualizar
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="contacts-table-container">
+                                <div class="loading-state">
+                                    <div class="loading-spinner">
+                                        <i class="fas fa-spinner fa-spin"></i>
+                                    </div>
+                                    <p>Cargando contactos...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <div class="sidebar-content">
+                        <!-- Quick Actions -->
+                        <div class="quick-actions">
+                            <h3><i class="fas fa-bolt"></i> Acciones Rápidas</h3>
+                            <div class="action-buttons">
+                                <a href="admin_services.html" class="action-btn">
+                                    <i class="fas fa-plus-circle"></i>
+                                    <span>Agregar Servicio</span>
+                                </a>
+                                <a href="admin_company.html" class="action-btn">
+                                    <i class="fas fa-edit"></i>
+                                    <span>Editar Información</span>
+                                </a>
+                                <a href="admin_dashboard.php" target="_blank" class="action-btn">
+                                    <i class="fas fa-chart-bar"></i>
+                                    <span>Ver Estadísticas</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Recent Activity -->
+                        <div class="recent-activity">
+                            <h3><i class="fas fa-history"></i> Actividad Reciente</h3>
+                            <div class="activity-list" id="activity-list">
+                                <div class="activity-item">
+                                    <div class="activity-icon">
+                                        <i class="fas fa-user-plus"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <h4>Nuevo Contacto</h4>
+                                        <p>Hace unos momentos</p>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon">
+                                        <i class="fas fa-tools"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <h4>Servicio Actualizado</h4>
+                                        <p>Hace 2 horas</p>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon">
+                                        <i class="fas fa-building"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <h4>Info Empresa Editada</h4>
+                                        <p>Ayer</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categories Overview -->
+                <div class="data-table-container">
+                    <div class="table-header">
+                        <h3><i class="fas fa-tags"></i> Servicios por Categoría</h3>
+                        <div class="help-tooltip">
+                            <i class="fas fa-question-circle"></i>
+                            <span class="tooltip-text">Distribución de tus servicios por categorías</span>
+                        </div>
+                    </div>
+                    <div class="categories-grid" id="categories-grid">
+                        <div class="loading-state">
+                            <div class="loading-spinner">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </div>
+                            <p>Cargando categorías...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Global variables
+        let allContacts = [];
+        let filteredContacts = [];
+
+        // Load dashboard data when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDashboardData();
+            setupSearch();
+        });
+
+        // Function to load dashboard data
+        function loadDashboardData() {
+            showLoadingState('stats-overview');
+            showLoadingState('contacts-table-container');
+            showLoadingState('categories-grid');
+
+            fetch('admin_dashboard.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la respuesta del servidor');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    updateStatistics(data);
+                    updateContactsTable(data.ultimos_contactos || []);
+                    updateCategories(data.categorias || {});
+                    allContacts = data.ultimos_contactos || [];
+                    filteredContacts = [...allContacts];
+                })
+                .catch(error => {
+                    console.error('Error loading dashboard data:', error);
+                    showErrorState('Error al cargar los datos. Verifica tu conexión e intenta nuevamente.');
+                });
+        }
+
+        // Update statistics cards
+        function updateStatistics(data) {
+            const statsContainer = document.getElementById('stats-overview');
+            statsContainer.innerHTML = '';
+
+            const stats = [
+                {
+                    icon: 'fas fa-wrench',
+                    value: data.servicios_activos || 0,
+                    label: 'Servicios Activos',
+                    color: '#007bff'
+                },
+                {
+                    icon: 'fas fa-envelope',
+                    value: data.total_contactos || 0,
+                    label: 'Total Contactos',
+                    color: '#28a745'
+                },
+                {
+                    icon: 'fas fa-clock',
+                    value: data.contactos_recientes || 0,
+                    label: 'Contactos Recientes',
+                    color: '#ffc107'
+                }
+            ];
+
+            stats.forEach(stat => {
+                const card = document.createElement('div');
+                card.className = 'stat-card-large';
+                card.innerHTML = `
+                    <div class="stat-icon">
+                        <i class="${stat.icon}"></i>
+                    </div>
+                    <div class="stat-number">${stat.value}</div>
+                    <div class="stat-label">${stat.label}</div>
+                `;
+                statsContainer.appendChild(card);
+            });
+        }
+
+        // Update contacts table
+        function updateContactsTable(contacts) {
+            const container = document.getElementById('contacts-table-container');
+
+            if (!contacts || contacts.length === 0) {
+                container.innerHTML = `
+                    <div class="error-state">
+                        <i class="fas fa-inbox"></i>
+                        <p>No hay contactos recientes</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `
+                <table class="contacts-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Servicio</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contacts-body">
+                        ${contacts.map((contact, index) => `
+                            <tr>
+                                <td>${contact.nombre || 'N/A'}</td>
+                                <td>${contact.email || 'N/A'}</td>
+                                <td>${contact.servicio || 'N/A'}</td>
+                                <td>${formatDate(contact.fecha_envio)}</td>
+                                <td><span class="status-badge status-new">Nuevo</span></td>
+                                <td class="contact-actions">
+                                    <button class="btn-small btn-view" onclick="viewContact(${index})">
+                                        <i class="fas fa-eye"></i> Ver
+                                    </button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // Update categories display
+        function updateCategories(categories) {
+            const container = document.getElementById('categories-grid');
+
+            if (!categories || Object.keys(categories).length === 0) {
+                container.innerHTML = `
+                    <div class="error-state">
+                        <i class="fas fa-tags"></i>
+                        <p>No hay categorías disponibles</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = Object.entries(categories).map(([categoria, total]) => `
+                <div class="stat-card-large">
+                    <div class="stat-icon">
+                        <i class="fas fa-folder"></i>
+                    </div>
+                    <div class="stat-number">${total}</div>
+                    <div class="stat-label">${categoria}</div>
+                </div>
+            `).join('');
+        }
+
+        // Format date for display
+        function formatDate(dateString) {
+            if (!dateString) return 'N/A';
+            try {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('es-ES', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            } catch (e) {
+                return 'N/A';
+            }
+        }
+
+        // Setup search functionality
+        function setupSearch() {
+            const searchInput = document.getElementById('search-input');
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                filteredContacts = allContacts.filter(contact =>
+                    (contact.nombre || '').toLowerCase().includes(searchTerm) ||
+                    (contact.email || '').toLowerCase().includes(searchTerm) ||
+                    (contact.servicio || '').toLowerCase().includes(searchTerm)
+                );
+                updateContactsTable(filteredContacts);
+            });
+        }
+
+        // View contact details
+        function viewContact(index) {
+            const contact = filteredContacts[index];
+            if (contact) {
+                alert(`Detalles del contacto:\n\nNombre: ${contact.nombre}\nEmail: ${contact.email}\nServicio: ${contact.servicio}\nFecha: ${formatDate(contact.fecha_envio)}`);
+            }
+        }
+
+        // Refresh data function
+        function refreshData() {
+            const refreshBtn = event.target.closest('button');
+            const originalHTML = refreshBtn.innerHTML;
+            refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Actualizando...';
+            refreshBtn.disabled = true;
+
+            loadDashboardData();
+
+            setTimeout(() => {
+                refreshBtn.innerHTML = originalHTML;
+                refreshBtn.disabled = false;
+            }, 1000);
+        }
+
+        // Logout function
+        function logout() {
+            if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+                window.location.href = 'admin_logout.php';
+            }
+        }
+
+        // Show loading state
+        function showLoadingState(containerId) {
+            const container = document.getElementById(containerId);
+            if (container) {
+                container.innerHTML = `
+                    <div class="loading-state">
+                        <div class="loading-spinner">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                        <p>Cargando...</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Show error state
+        function showErrorState(message) {
+            ['stats-overview', 'contacts-table-container', 'categories-grid'].forEach(id => {
+                const container = document.getElementById(id);
+                if (container) {
+                    container.innerHTML = `
+                        <div class="error-state">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p>${message}</p>
+                            <button onclick="loadDashboardData()" class="btn-admin" style="margin-top: 1rem;">
+                                <i class="fas fa-redo"></i> Reintentar
+                            </button>
+                        </div>
+                    `;
+                }
+            });
+        }
+    </script>
+</body>
+</html>
