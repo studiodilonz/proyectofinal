@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiservicios Eléctricos - Contactos</title>
+    <meta name="description"
+        content="Contáctanos para servicios de electricidad, plomería y refrigeración en Santo Domingo. Disponibles 24/7 para emergencias.">
+    <meta name="keywords" content="contacto, electricidad, plomería, refrigeración, Santo Domingo, emergencias 24/7">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <!-- Schema.org markup for contact info -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Multiservicios Eléctricos",
+        "url": "https://multiservicios.com",
+        "logo": "https://multiservicios.com/logo.png",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+1-809-123-4567",
+            "contactType": "customer service",
+            "availableLanguage": "Spanish"
+        },
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Calle Principal #123",
+            "addressLocality": "Santo Domingo",
+            "addressCountry": "DO"
+        },
+        "sameAs": [
+            "https://www.facebook.com/multiservicios",
+            "https://wa.me/18296962202"
+        ]
+    }
+    </script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <h1><i class="fas fa-bolt"></i> Multiservicios Eléctricos</h1>
+                </a>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="acerca.html">Acerca de</a></li>
+                    <li><a href="servicios.html">Servicios</a></li>
+                    <li><a href="contactos.html">Contactos</a></li>
+                </ul>
+                <div class="nav-controls">
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="contact fade-in">
+        <div class="container">
+            <h2>Contáctanos</h2>
+            <div class="contact-content">
+                <form id="contact-form" action="process_contact.php" method="POST" class="slide-in-left">
+                    <label for="name"><i class="fas fa-user"></i> Nombre:</label>
+                    <input type="text" id="name" name="name" required placeholder="Tu nombre completo">
+
+                    <label for="email"><i class="fas fa-envelope"></i> Correo:</label>
+                    <input type="email" id="email" name="email" required placeholder="tu@email.com">
+
+                    <label for="phone"><i class="fas fa-phone"></i> Teléfono:</label>
+                    <input type="tel" id="phone" name="phone" placeholder="(809) 123-4567">
+
+                    <label for="service"><i class="fas fa-tools"></i> Servicio requerido:</label>
+                    <select id="service" name="service">
+                        <option value="">Selecciona un servicio</option>
+                        <option value="electricidad">Electricidad</option>
+                        <option value="plomeria">Plomería</option>
+                        <option value="refrigeracion">Refrigeración</option>
+                        <option value="emergencia">Emergencia 24/7</option>
+                        <option value="otro">Otro</option>
+                    </select>
+
+                    <label for="message"><i class="fas fa-comment"></i> Mensaje:</label>
+                    <textarea id="message" name="message" required
+                        placeholder="Describe tu requerimiento..."></textarea>
+
+                    <button type="submit" class="btn">Enviar Mensaje</button>
+                </form>
+                <div class="contact-info slide-in-right">
+                    <h3>Información de Contacto</h3>
+                    <p><i class="fas fa-phone"></i> <strong>Teléfono:</strong> +1 (829) 696-2202</p>
+                    <p><i class="fas fa-phone"></i> <strong>WhatsApp:</strong> +1 (829) 696-2202</p>
+                    <p><i class="fas fa-envelope"></i> <strong>Email:</strong> studiodilonz@gmail.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Dirección:</strong> C-4, Santiago de los Caballeros
+                        51000, República Dominicana</p>
+                    <p><i class="fas fa-clock"></i> <strong>Horario:</strong> Las 24/7</p>
+                    <p><i class="fas fa-clock"></i> <strong>Emergencias:</strong> 24/7</p>
+
+
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="https://www.tiktok.com/@mult_iservicioselectrico" class="social-link" aria-label="TikTok"
+                    target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
+                <a href="https://wa.me/18296962202" class="social-link" aria-label="WhatsApp" target="_blank"><i
+                        class="fab fa-whatsapp"></i> WhatsApp</a>
+                <a href="https://www.instagram.com/mult_iservicioselectricos/" class="social-link"
+                    aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="acerca.html">Acerca de</a></li>
+                        <li><a href="servicios.html">Servicios</a></li>
+                        <li><a href="contactos.html">Contactos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Servicios</h3>
+                    <ul>
+                        <li>Electricidad</li>
+                        <li>Plomería</li>
+                        <li>Refrigeración</li>
+                        <li>Emergencias 24/7</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contáctanos</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +1 (829) 696-2202</li>
+                        <li><i class="fas fa-envelope"></i> studiodilonz@gmail.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Santiago, RD</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Multiservicios Eléctricos. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+
+</html>

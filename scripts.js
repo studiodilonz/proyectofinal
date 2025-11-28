@@ -39,8 +39,6 @@ const contactForm = document.getElementById('contact-form');
 
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
         // Get form values
         const name = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
@@ -49,22 +47,22 @@ if (contactForm) {
         const message = document.getElementById('message').value.trim();
 
         // Basic validation
-        if (name && email && message) {
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                showNotification('Por favor, ingresa un correo electrónico válido.', 'error');
-                return;
-            }
-
-            // Simulate form submission
-            showNotification('¡Mensaje enviado exitosamente! Nos pondremos en contacto contigo pronto.', 'success');
-
-            // Reset form
-            contactForm.reset();
-        } else {
+        if (!name || !email || !message) {
+            e.preventDefault();
             showNotification('Por favor, completa todos los campos obligatorios.', 'error');
+            return;
         }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            e.preventDefault();
+            showNotification('Por favor, ingresa un correo electrónico válido.', 'error');
+            return;
+        }
+
+        // If validation passes, allow form submission to process_contact.php
+        // The PHP script will handle the database insertion and show success/error messages
     });
 }
 
