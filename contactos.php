@@ -1,3 +1,4 @@
+<?php include "conexion.php"; ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -50,10 +51,10 @@
             </div>
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="acerca.html">Acerca de</a></li>
-                    <li><a href="servicios.html">Servicios</a></li>
-                    <li><a href="contactos.html">Contactos</a></li>
+                    <li><a href="index.php">Inicio</a></li>
+                       <li><a href="acerca.php">Acerca de</a></li>
+                       <li><a href="servicios.php">Servicios</a></li>
+                       <li><a href="contactos.php">Contactos</a></li>
                 </ul>
                 <div class="nav-controls">
                     <div class="hamburger">
@@ -96,7 +97,7 @@
 
                     <button type="submit" class="btn">Enviar Mensaje</button>
                 </form>
-                <div class="contact-info slide-in-right">
+                <div class="contact-info slide-in-right"> 
                     <h3>Información de Contacto</h3>
                     <p><i class="fas fa-phone"></i> <strong>Teléfono:</strong> +1 (829) 696-2202</p>
                     <p><i class="fas fa-phone"></i> <strong>WhatsApp:</strong> +1 (829) 696-2202</p>
@@ -126,10 +127,11 @@
                 <div class="footer-section">
                     <h3>Enlaces Rápidos</h3>
                     <ul>
-                        <li><a href="index.html">Inicio</a></li>
-                        <li><a href="acerca.html">Acerca de</a></li>
-                        <li><a href="servicios.html">Servicios</a></li>
-                        <li><a href="contactos.html">Contactos</a></li>
+                       <li><a href="index.php">Inicio</a></li>
+                       <li><a href="acerca.php">Acerca de</a></li>
+                       <li><a href="servicios.php">Servicios</a></li>
+                       <li><a href="contactos.php">Contactos</a></li>
+
                     </ul>
                 </div>
                 <div class="footer-section">
